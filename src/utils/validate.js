@@ -4,4 +4,9 @@ function validateEmail(email) {
 	return re.test(String(email).toLowerCase())
 }
 
-export { validateEmail }
+function validatePassword(password) {
+	const re = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+	return re.test(String(password))
+}
+
+export { validateEmail, validatePassword }

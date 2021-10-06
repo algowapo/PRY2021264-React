@@ -105,4 +105,16 @@ $colorDark: #3e3f5e;
 			}
 		}
 	}
+	& > .warning-row {
+		height: 1.5em;
+		margin: auto 0;
+		display: flex;
+		align-items: start;
+		& > span {
+			color: #ff2d7e;
+			display: inline-block;
+			font-weight: 400;
+			font-size: 0.8em;
+		}
+	}
 }
