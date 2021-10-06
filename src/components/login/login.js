@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './login.scss'
-import { useForm } from '../hooks/useForm'
-import { validateEmail } from '../utils/validate'
-import { login } from '../api/login'
+import { useForm } from '../../hooks/useForm'
+import { validateEmail } from '../../utils/validate'
+import { login } from '../../api/login'
 
 const Login = () => {
 	const [values, handleChange] = useForm({ email: '', password: '' })
+	const [emailValidation, setEmailValidation] = useState('')
+	const [passwordValidation, setPasswordValidation] = useState('')
 
 	const onClickLogin = async () => {
+		setEmailValidation('')
+		setPasswordValidation('')
 		if (!validateEmail(values.email)) {
-			alert('Wrong Email')
+			setEmailValidation('Please enter a valid email')
 			return
 		}
 		let res = await login({
@@ -20,7 +24,7 @@ const Login = () => {
 			alert('Welcome')
 			return
 		}
-		alert('Wrong username/password')
+		setPasswordValidation('Wrong username or password')
 	}
 
 	return (
@@ -38,6 +42,9 @@ const Login = () => {
 					/>
 					<span>Username or Email</span>
 				</div>
+				<div className='warning-row'>
+					<span>{emailValidation}</span>
+				</div>
 				<div className='form-row'>
 					<input
 						type='password'
@@ -47,7 +54,9 @@ const Login = () => {
 					/>
 					<span>Password</span>
 				</div>
-				<div className='form-row'></div>
+				<div className='warning-row'>
+					<span>{passwordValidation}</span>
+				</div>
 				<div className='form-row'>
 					<button onClick={onClickLogin}>Login to your Account!</button>
 				</div>
