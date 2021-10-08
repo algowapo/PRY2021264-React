@@ -9,4 +9,17 @@ function validatePassword(password) {
 	return re.test(String(password))
 }
 
-export { validateEmail, validatePassword }
+function validateProduct(product) {
+	const reNumbers = /^\d{0,8}(\.\d{1,4})?$/
+	const reChars = /^[a-zA-Z]+$/
+	if (
+		reNumbers.test(String(product.price)) &&
+		reChars.test(String(product.name)) &&
+		reChars.test(String(product.color))
+	) {
+		return true
+	}
+	return false
+}
+
+export { validateEmail, validatePassword, validateProduct }

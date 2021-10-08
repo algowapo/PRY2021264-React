@@ -3,6 +3,7 @@ import './register.scss'
 import { useForm } from '../../hooks/useForm'
 import { validateEmail, validatePassword } from '../../utils/validate'
 import { register } from '../../api/register'
+import { Link } from 'react-router-dom'
 
 const Register = () => {
 	const [values, handleChange] = useForm({ email: '', password: '' })
@@ -72,6 +73,9 @@ const Register = () => {
 				</div>
 				<div className='form-row'>
 					<button onClick={onClickRegister}>Create an account!</button>
+				</div>
+				<div className='link-row'>
+					<Link to='/'>Log In to your account</Link>
 				</div>
 			</div>
 		</div>
