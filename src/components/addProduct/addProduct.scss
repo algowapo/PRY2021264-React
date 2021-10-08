@@ -49,6 +49,7 @@ $colorDark: #3e3f5e;
 		& > button {
 			border-radius: 0.5em;
 			font-family: inherit;
+
 			width: 100%;
 		}
 
@@ -89,7 +90,6 @@ $colorDark: #3e3f5e;
 			border: 0.1em solid #7b5dfa;
 			padding: 0.7em 0.5em;
 			color: #fff;
-			margin-top: 1.8em;
 			cursor: pointer;
 			font-weight: 500;
 			transition: all 300ms ease;
@@ -116,9 +116,5 @@ $colorDark: #3e3f5e;
 			font-weight: 400;
 			font-size: 0.8em;
 		}
-	}
-	& > .link-row {
-		display: flex;
-		justify-content: center;
 	}
 }

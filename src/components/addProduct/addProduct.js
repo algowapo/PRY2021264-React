@@ -1,16 +1,13 @@
 import React, { useState } from 'react'
-import './login.scss'
+import './addProduct.scss'
 import { useForm } from '../../hooks/useForm'
 import { validateEmail } from '../../utils/validate'
 import { login } from '../../api/login'
-import { Link } from 'react-router-dom'
-import { useHistory } from 'react-router-dom'
 
-const Login = () => {
+const AddProduct = () => {
 	const [values, handleChange] = useForm({ email: '', password: '' })
 	const [emailValidation, setEmailValidation] = useState('')
 	const [passwordValidation, setPasswordValidation] = useState('')
-	const history = useHistory()
 
 	const onClickLogin = async () => {
 		setEmailValidation('')
@@ -24,11 +21,7 @@ const Login = () => {
 			password: values.password,
 		})
 		if (res.status === 200) {
-			history.push(`/products/${res.data._id}`)
-			return
-		}
-		if (res.message === 'Network Error') {
-			setPasswordValidation('Error in the server, try again later')
+			alert('Welcome')
 			return
 		}
 		setPasswordValidation('Wrong username or password')
@@ -67,12 +60,9 @@ const Login = () => {
 				<div className='form-row'>
 					<button onClick={onClickLogin}>Login to your Account!</button>
 				</div>
-				<div className='link-row'>
-					<Link to='register'>Create an account</Link>
-				</div>
 			</div>
 		</div>
 	)
 }
 
-export default Login
+export default AddProduct
