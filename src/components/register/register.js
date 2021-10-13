@@ -4,11 +4,13 @@ import { useForm } from '../../hooks/useForm'
 import { validateEmail, validatePassword } from '../../utils/validate'
 import { register } from '../../api/register'
 import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 const Register = () => {
 	const [values, handleChange] = useForm({ email: '', password: '' })
 	const [emailValidation, setEmailValidation] = useState('')
 	const [passwordValidation, setPasswordValidation] = useState('')
+	const history = useHistory()
 
 	const onClickRegister = async () => {
 		setEmailValidation('')
@@ -37,6 +39,7 @@ const Register = () => {
 		}
 		if (res.status === 201) {
 			alert('User created')
+			history.push(`/products/${res.data._id}`)
 			return
 		}
 	}

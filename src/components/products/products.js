@@ -6,7 +6,6 @@ import { deleteSingleProduct } from '../../api/deleteSingleProduct'
 import { formatDate } from '../../utils/formatDate'
 import MaterialTable from 'material-table'
 import { useHistory, useLocation } from 'react-router-dom'
-import { Link } from 'react-router-dom'
 import './products.scss'
 
 const Products = ({ setProductUpdateIndexes }) => {
@@ -71,12 +70,116 @@ const Products = ({ setProductUpdateIndexes }) => {
 
 	return (
 		<div className='products-list'>
+			<nav className='navbar navbar-expand-xl navbar-dark bg-dark text-light'>
+				<button
+					className='navbar-toggler'
+					type='button'
+					data-toggle='collapse'
+					data-target='#navbarSupportedContent'
+					aria-controls='navbarSupportedContent'
+					aria-expanded='false'
+					aria-label='Toggle navigation'
+				>
+					<span className='navbar-toggler-icon'></span>
+				</button>
+
+				<div className='collapse navbar-collapse' id='navbarSupportedContent'>
+					<ul className='navbar-nav mr-auto'>
+						<li className='nav-item active'>
+							<button
+								onClick={() => {
+									history.push(`/addMassiveProducts/${id}`)
+								}}
+							>
+								Import Massive
+							</button>
+						</li>
+						<li className='nav-item'>
+							<button
+								onClick={() => {
+									history.push(`/createProduct/${id}`)
+								}}
+							>
+								Create Product
+							</button>
+						</li>
+						<li>
+							<button
+								onClick={() => {
+									deleteAllProducts(id).then(() => {
+										getProductsFromAPI()
+									})
+								}}
+							>
+								Delete All
+							</button>
+						</li>
+						<li>
+							<button
+								onClick={() => {
+									let selectedProducts = products.filter(
+										(p) => p.selected === true
+									)
+									for (let i = 0; i < selectedProducts.length; i++) {
+										deleteSingleProduct(id, selectedProducts[i]._id).then(
+											() => {
+												getProductsFromAPI()
+											}
+										)
+									}
+									if (selectedProducts.length <= 0) {
+										alert('Select at least 1 product')
+									}
+								}}
+							>
+								Delete Selected
+							</button>
+						</li>
+						<li>
+							<button
+								onClick={() => {
+									history.push(`/editAllProducts/${id}`)
+								}}
+							>
+								Update All Products
+							</button>
+						</li>
+						<li>
+							<button
+								onClick={() => {
+									let selectedProducts = products.filter(
+										(p) => p.selected === true
+									)
+									let indexesArray = []
+									for (let i = 0; i < selectedProducts.length; i++) {
+										indexesArray.push(selectedProducts[i]._id)
+									}
+									setProductUpdateIndexes(indexesArray)
+									if (selectedProducts.length > 0) {
+										history.push(`/editSelectedProducts/${id}`)
+									} else {
+										alert('Select at least 1 product')
+									}
+								}}
+							>
+								Update Selected Products
+							</button>
+						</li>
+						<li>
+							<button
+								onClick={() => {
+									history.push(`/`)
+								}}
+							>
+								Logout
+							</button>
+						</li>
+					</ul>
+				</div>
+			</nav>
 			<header className='products-cta'>
 				<h2>My Products list</h2>
 			</header>
-			<div>
-				<Link to='/'>Logout</Link>
-			</div>
 			<div className='table-container'>
 				<MaterialTable
 					title='All my Products'
@@ -124,74 +227,6 @@ const Products = ({ setProductUpdateIndexes }) => {
 						exportButton: true,
 					}}
 				/>
-			</div>
-			<div className='buttons-row'>
-				<button
-					onClick={() => {
-						history.push(`/addMassiveProducts/${id}`)
-					}}
-				>
-					Import Massive
-				</button>
-				<button
-					onClick={() => {
-						history.push(`/createProduct/${id}`)
-					}}
-				>
-					Create One Product
-				</button>
-			</div>
-			<div className='buttons-row'>
-				<button
-					onClick={() => {
-						deleteAllProducts(id).then(() => {
-							getProductsFromAPI()
-						})
-					}}
-				>
-					Delete All Products
-				</button>
-				<button
-					onClick={() => {
-						let selectedProducts = products.filter((p) => p.selected === true)
-						for (let i = 0; i < selectedProducts.length; i++) {
-							deleteSingleProduct(id, selectedProducts[i]._id).then(() => {
-								getProductsFromAPI()
-							})
-						}
-						if (selectedProducts.length <= 0) {
-							alert('Select at least 1 product')
-						}
-					}}
-				>
-					Delete Selected Products
-				</button>
-			</div>
-			<div className='buttons-row'>
-				<button
-					onClick={() => {
-						history.push(`/editAllProducts/${id}`)
-					}}
-				>
-					Update All Products
-				</button>
-				<button
-					onClick={() => {
-						let selectedProducts = products.filter((p) => p.selected === true)
-						let indexesArray = []
-						for (let i = 0; i < selectedProducts.length; i++) {
-							indexesArray.push(selectedProducts[i]._id)
-						}
-						setProductUpdateIndexes(indexesArray)
-						if (selectedProducts.length > 0) {
-							history.push(`/editSelectedProducts/${id}`)
-						} else {
-							alert('Select at least 1 product')
-						}
-					}}
-				>
-					Update Selected Products
-				</button>
 			</div>
 		</div>
 	)
