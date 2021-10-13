@@ -1,13 +1,47 @@
 .products-list {
 	max-height: 100%;
+	height: 90vh;
 	width: 80%;
-	& > .products-cta {
+
+	@media screen and (max-width: 950px) {
+		width: 95%;
+	}
+
+	.navbar {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		z-index: 999;
+		background: #7b5dfa !important;
+
+		button {
+			color: #ffffff;
+			background: none;
+			border: none;
+			padding: 1rem 3rem;
+			transition: all 0.2s ease-in-out;
+
+			&:hover {
+				color: #000000;
+			}
+		}
+	}
+
+	.navbar-toggler-icon {
+		color: #ffffff;
+	}
+
+	.products-cta {
 		display: flex;
 		justify-content: center;
 		& > h2 {
 			margin: 0 auto;
 			text-align: center;
 			padding: 2em;
+			color: #2f2f2f;
+			font-size: 2.7rem;
+			font-weight: 600;
 		}
 	}
 	& > .table-container {
