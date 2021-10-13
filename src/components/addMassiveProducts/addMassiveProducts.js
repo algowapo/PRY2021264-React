@@ -77,9 +77,7 @@ const AddMassiveProducts = () => {
 
 	useEffect(() => {
 		const sendProducts = async (productsArray, id) => {
-			console.log(productsArray)
-			let res = await massiveProducts(productsArray, id)
-			console.log(res)
+			await massiveProducts(productsArray, id)
 			history.push(`/products/${id}`)
 		}
 		if (formatedExcel) {

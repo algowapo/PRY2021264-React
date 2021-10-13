@@ -7,12 +7,21 @@ import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 
 const EditAllProducts = () => {
-	const [values, handleChange] = useForm({
+	const [values, handleChange, setValues] = useForm({
 		name: '',
-		color: '',
+		color: 'Red',
 		price: '',
 		date: '',
 	})
+	const [colors] = useState([
+		'Red',
+		'Blue',
+		'Green',
+		'Yellow',
+		'Pink',
+		'Black',
+		'White',
+	])
 	const [nameValidation, setNameValidation] = useState('')
 	const [colorValidation, setColorValidation] = useState('')
 	const [priceValidation, setPriceValidation] = useState('')
@@ -43,7 +52,6 @@ const EditAllProducts = () => {
 				id
 			)
 			if (res.status === 200) {
-				alert('Products edited successfully')
 				history.push(`/products/${id}`)
 				return
 			}
@@ -81,12 +89,19 @@ const EditAllProducts = () => {
 					<span>{nameValidation}</span>
 				</div>
 				<div className='form-row'>
-					<input
-						type='text'
-						name='color'
+					<select
 						value={values.color}
-						onChange={handleChange}
-					/>
+						onChange={(e) => {
+							setValues({
+								...values,
+								color: e.target.value,
+							})
+						}}
+					>
+						{colors.map((x, y) => (
+							<option key={y}>{x}</option>
+						))}
+					</select>
 					<span>Color</span>
 				</div>
 				<div className='warning-row'>
