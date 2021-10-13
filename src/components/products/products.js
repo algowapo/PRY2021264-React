@@ -9,15 +9,8 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import './products.scss'
 
-const Products = () => {
+const Products = ({ setProductUpdateIndexes }) => {
 	const [products, setProducts] = useState()
-	// const [checkedProducts, setCheckedProducts] = useState([
-	// 	true,
-	// 	false,
-	// 	true,
-	// 	false,
-	// 	false,
-	// ])
 	const history = useHistory()
 	const location = useLocation()
 	const { id } = useParams()
@@ -88,11 +81,10 @@ const Products = () => {
 				<MaterialTable
 					title='All my Products'
 					columns={[
-						{ title: 'Id', field: '_id' },
+						// { title: 'Id', field: '_id' },
 						{ title: 'Name', field: 'name' },
 						{ title: 'Price', field: 'price', type: 'numeric' },
 						{ title: 'Color', field: 'color' },
-						{ title: 'Selected', field: 'selected' },
 						{ title: 'Date', field: 'date' },
 					]}
 					data={products}
@@ -129,6 +121,7 @@ const Products = () => {
 					]}
 					options={{
 						actionsColumnIndex: -1,
+						exportButton: true,
 					}}
 				/>
 			</div>
@@ -161,7 +154,14 @@ const Products = () => {
 				<button
 					onClick={() => {
 						let selectedProducts = products.filter((p) => p.selected === true)
-						console.log(selectedProducts)
+						for (let i = 0; i < selectedProducts.length; i++) {
+							deleteSingleProduct(id, selectedProducts[i]._id).then(() => {
+								getProductsFromAPI()
+							})
+						}
+						if (selectedProducts.length <= 0) {
+							alert('Select at least 1 product')
+						}
 					}}
 				>
 					Delete Selected Products
@@ -178,7 +178,16 @@ const Products = () => {
 				<button
 					onClick={() => {
 						let selectedProducts = products.filter((p) => p.selected === true)
-						console.log(selectedProducts)
+						let indexesArray = []
+						for (let i = 0; i < selectedProducts.length; i++) {
+							indexesArray.push(selectedProducts[i]._id)
+						}
+						setProductUpdateIndexes(indexesArray)
+						if (selectedProducts.length > 0) {
+							history.push(`/editSelectedProducts/${id}`)
+						} else {
+							alert('Select at least 1 product')
+						}
 					}}
 				>
 					Update Selected Products

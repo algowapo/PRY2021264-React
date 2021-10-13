@@ -16,6 +16,15 @@ const EditProduct = () => {
 		price: '',
 		date: '',
 	})
+	const [colors] = useState([
+		'Red',
+		'Blue',
+		'Green',
+		'Yellow',
+		'Pink',
+		'Black',
+		'White',
+	])
 	const [nameValidation, setNameValidation] = useState('')
 	const [colorValidation, setColorValidation] = useState('')
 	const [priceValidation, setPriceValidation] = useState('')
@@ -89,7 +98,7 @@ const EditProduct = () => {
 	return (
 		<div className='contact-wrapper'>
 			<header className='login-cta'>
-				<h2>Create Product</h2>
+				<h2>Edit Product</h2>
 			</header>
 			<div className='login-form'>
 				<div className='form-row'>
@@ -105,12 +114,19 @@ const EditProduct = () => {
 					<span>{nameValidation}</span>
 				</div>
 				<div className='form-row'>
-					<input
-						type='text'
-						name='color'
+					<select
 						value={values.color}
-						onChange={handleChange}
-					/>
+						onChange={(e) => {
+							setValues({
+								...values,
+								color: e.target.value,
+							})
+						}}
+					>
+						{colors.map((x, y) => (
+							<option key={y}>{x}</option>
+						))}
+					</select>
 					<span>Color</span>
 				</div>
 				<div className='warning-row'>

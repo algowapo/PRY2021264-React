@@ -46,6 +46,7 @@ $colorDark: #3e3f5e;
 		}
 
 		& > input,
+		& > select,
 		& > button {
 			border-radius: 0.5em;
 			font-family: inherit;
@@ -53,7 +54,10 @@ $colorDark: #3e3f5e;
 			width: 100%;
 		}
 
-		& > input {
+		& > input,
+		& > select {
+			border-width: 0.125em;
+			border-color: #2a2a2a;
 			font-weight: 300;
 			transition: 100ms ease all;
 			padding: 1em 0.5em;
