@@ -1,3 +1,3 @@
-const URL = 'http://localhost:3000'
+const URL = 'https://pry2021264node.herokuapp.com'
 
 export default URL
